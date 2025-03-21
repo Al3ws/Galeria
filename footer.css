@@ -1,0 +1,31 @@
+footer {
+    background: url('imgs/fundo.png') no-repeat center/cover;
+    color: #fff;
+    text-align: center;
+    width: 100%;
+    min-height: 20rem;
+    height: fit-content;
+    border-top: #1206af 3px solid;
+    position: relative;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+    animation: aparecendo 1s ease-in-out forwards 1.5s;
+    opacity: 0;
+}
+
+footer p {
+    color: #fff;
+    font-size: 1.2rem;
+    margin: 0;
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    letter-spacing: 1px;
+    text-shadow: 0 0 10px rgba(0, 0, 0, 0.2);
+    margin: 1rem;
+    background-color: #001c5086;
+    padding: 0.5rem;
+    border-radius: 5px;
+    box-shadow: 0 0 5px rgba(0, 0, 0, 0.2);
+    border: #5fb7ff 2px solid;
+}

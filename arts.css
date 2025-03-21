@@ -1,0 +1,72 @@
+#artes {
+    background-color: rgb(0, 0, 107);
+}
+.artessec {
+    width: 90%;
+}
+
+.arte {
+    margin: 1rem;
+    display: flex;
+    justify-content: center;
+    background-color: rgba(94, 94, 221, 0.384);
+    padding: 1rem;
+    border-radius: 25px;
+    box-shadow: 0 0 5px rgba(0, 0, 0, 0.2);
+    border: #5fb7ff 2px solid;
+    overflow: hidden;
+}
+
+.arte img {
+    width: 50%;
+    border: #5fb7ff 2px solid;
+    border-radius: 25px;
+}
+
+.descricao {
+    display: flex;
+    align-items: center;
+    flex-direction: column;
+    color: white;
+    font-family: Arial, sans-serif;
+    width: 50%;
+    height: 100%;
+    background-color: rgba(94, 94, 221, 0.384);
+    padding: 1rem;
+    border-radius: 25px;
+    box-shadow: 0 0 5px rgba(0, 0, 0, 0.2);
+    border: #5fb7ff 2px solid;
+    overflow: hidden;
+    margin: 1rem;
+}
+
+.descricao h2 {
+    font-size: 1.5rem;
+    letter-spacing: 1px;
+    margin: 0.5rem;
+    text-shadow: 0 0 5px rgba(0, 0, 0, 0.2);
+    text-transform: uppercase;
+    color: #a8d8ff;
+}
+
+.descricao p {
+    font-size: 1rem;
+    letter-spacing: 1px;
+    margin: 0.5rem;
+    text-shadow: 0 0 5px rgba(0, 0, 0, 0.2);
+}
+
+@media screen and (max-width: 768px) {
+    .arte {
+        flex-direction: column;
+        align-items: center;
+    }
+
+    .arte img {
+        width: 100%;
+    }
+
+    .descricao {
+        width: 100%;
+    }
+}

@@ -1,0 +1,18 @@
+main {
+    width: 100%;
+    min-height: 80vh;
+    height: auto;
+    display: flex;
+    align-items: center;
+    flex-direction: column;
+    background: linear-gradient(180deg, #5299e4, #1853ac);
+    padding-top: 2rem;
+    padding-bottom: 2rem;
+    border-top: #3586f0 3px solid;
+    border-bottom: #3586f0 3px solid;
+    box-shadow: 0 0 5px rgba(0, 0, 0, 0.2);
+    text-align: center;
+    animation: aparecendo 1s ease-in-out forwards 1s;
+    opacity: 0;
+    overflow: hidden;
+}
