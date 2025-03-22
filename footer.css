@@ -13,6 +13,7 @@ footer {
     flex-direction: column;
     animation: aparecendo 1s ease-in-out forwards 1.5s;
     opacity: 0;
+    overflow: hidden;
 }
 
 footer p {

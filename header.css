@@ -16,6 +16,7 @@ header {
     position: relative;
     opacity: 0;
     animation: aparecendo 1s ease-in-out forwards 0.5s;
+    overflow: hidden;
 }
 
 .hcontainer {
@@ -229,6 +230,7 @@ header nav ul li {
     width: 100%;
     user-select: none;
     text-shadow: 0 0 5px rgba(0, 0, 0, 0.8);
+    overflow: hidden;
 }
 
 header nav ul li:hover {
