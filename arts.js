@@ -26,6 +26,6 @@ const artes = {
 artes.imagens.forEach((imagem) => {
     const div = document.createElement('div');
     div.classList.add('arte');
-    div.innerHTML = `<div><img src="${imagem}" alt="Imagem"><div class="descricao"><h2>${artes.titulos[artes.imagens.indexOf(imagem)]}</h2><p>${artes.descricoes[artes.imagens.indexOf(imagem)]}</p><p>(<i>${artes.sobre[artes.imagens.indexOf(imagem)]}</i>)</p></div></div><img src="${artes.software[artes.imagens.indexOf(imagem)]}" alt="Software">`;
+    div.innerHTML = `<div class='artect'><img src="${imagem}" alt="Imagem"><div class="descricao"><h2>${artes.titulos[artes.imagens.indexOf(imagem)]}</h2><p>${artes.descricoes[artes.imagens.indexOf(imagem)]}</p><p>(<i>${artes.sobre[artes.imagens.indexOf(imagem)]}</i>)</p></div></div><img src="${artes.software[artes.imagens.indexOf(imagem)]}" alt="Software">`;
     artessec.appendChild(div);
 });

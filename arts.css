@@ -1,5 +1,5 @@
 #artes {
-    background-color: rgb(0, 0, 107);
+    background-color: #461c00;
 }
 .artessec {
     width: 90%;
@@ -11,37 +11,38 @@
     justify-content: center;
     align-items: center;
     flex-direction: column;
-    background-color: rgba(94, 94, 221, 0.384);
+    background-color: rgba(131, 74, 0, 0.562);
     padding: 1rem;
     border-radius: 25px;
     box-shadow: 0 0 5px rgba(0, 0, 0, 0.2);
-    border: #5fb7ff 2px solid;
+    border: #ffcc5f 2px solid;
     overflow: hidden;
 }
 
-.arte div {
+.artect {
     width: 100%;
     height: 100%;
     display: flex;
     justify-content: center;
-    border-bottom: #5fb7ff7a 2px solid;
+    border-bottom: #ffe75f7a 2px solid;
 }
 
 .arte img {
     height: 5rem;
     width: 5rem;
-    border: #5fb7ff 2px solid;
+    border: #ffac5f 2px solid;
     border-radius: 100%;
     object-fit: cover;
     object-position: center;
     margin: 1rem;
     margin-bottom: 0;
+    user-select: none;
 }
 
 .arte div img {
     width: 50%;
     height: auto;
-    border: #5fb7ff 2px solid;
+    border: #ffda5f 2px solid;
     border-radius: 25px;
     margin: 1rem;
 }
@@ -54,11 +55,11 @@
     font-family: Arial, sans-serif;
     width: 50%;
     height: 100%;
-    background-color: rgba(94, 94, 221, 0.384);
+    background-color: rgba(221, 177, 94, 0.384);
     padding: 1rem;
     border-radius: 25px;
     box-shadow: 0 0 5px rgba(0, 0, 0, 0.2);
-    border: #5fb7ff 2px solid;
+    border: #ff925f 2px solid;
     overflow: hidden;
     margin: 1rem;
 }
@@ -69,7 +70,7 @@
     margin: 0.5rem;
     text-shadow: 0 0 5px rgba(0, 0, 0, 0.2);
     text-transform: uppercase;
-    color: #a8d8ff;
+    color: #ffd375;
 }
 
 .descricao p {
@@ -80,32 +81,104 @@
 }
 
 ::-webkit-scrollbar-track {
-    background-color: #04296159;
+    background-color: #61390459;
     border-radius: 10px;
     box-shadow: inset 0 0 6px rgba(0, 0, 0, 0.3);
     border-radius: 10px;
-    border: 2px solid #0045add5;
+    border: 2px solid #ad6800d5;
 }
 
 ::-webkit-scrollbar {
     max-width: 12px;
-    background-color: #04296159;
+    background-color: #614b0459;
     border-radius: 10px;
 }
 
 ::-webkit-scrollbar-thumb {
-    background-color: #1206af;
+    background-color: #af6606;
     border-radius: 10px;
     transition: background-color 0.3s;
-    border: 2px solid #3083ffbd;
+    border: 2px solid #ffa530bd;
     outline: none;
     box-shadow: 0 0 5px rgba(0, 0, 0, 0.8);
     cursor: pointer;
 }
 
 ::-webkit-scrollbar-thumb:hover {
-    background-color: #0671af;
+    background-color: #ff9d00;
 }
+
+
+header {
+    background: url('imgs/outono.png') no-repeat bottom center/cover #33333333;
+    border-bottom: #af5806 3px solid;
+}
+
+.icontainer div p {
+    background-image: linear-gradient(135deg, #ff7433, #ffffff, #d87829, #ffffff, #ff3333);
+}
+
+.icontainer {
+    background-color: #7852005b;
+    border-top: #ffa41d 2px solid;
+}
+
+main {
+    background: linear-gradient(180deg, #fc8b0b, #352000);
+    border-top: #f0c435 3px solid;
+    border-bottom: #f0c435 3px solid;
+    box-shadow: 0 0 5px rgba(0, 0, 0, 0.2);
+}
+
+footer {
+    background: url('imgs/tesouro.png') no-repeat center/cover;
+    border-top: #af5206 3px solid;
+}
+
+footer p {
+    color: #fff;
+    text-shadow: 0 0 10px rgba(0, 0, 0, 0.2);
+    background-color: #50340086;
+    box-shadow: 0 0 5px rgba(0, 0, 0, 0.2);
+    border: #ffb45f 2px solid;
+}
+
+body {
+    background-color: #ffa733;
+}
+
+header nav {
+    background-color: #5a3300;
+    box-shadow: 0 0 5px rgba(0, 0, 0, 0.2);
+    border: #fdac69 2px solid;
+}
+
+header nav ul li {
+    box-shadow: 0 0 5px rgba(0, 0, 0, 0.2);
+    border-left: #fdce69 2px solid;
+    border-right: #fdce69 2px solid;
+    background-color: #783000;
+    text-shadow: 0 0 5px rgba(0, 0, 0, 0.8);
+}
+
+header nav ul li:hover {
+    background-color: #be4500;
+}
+
+.logo div {
+    border: #fdc969 3px solid;
+    background: url('imgs/logo2.png') no-repeat center/cover;
+}
+
+.logo div:hover {
+    border-color: #ffba5f;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.8);
+}
+
+.redes a button {
+    border: #c58101 2px solid;
+}
+
 
 @media screen and (max-width: 768px) {
     .arte div {

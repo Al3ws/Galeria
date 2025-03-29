@@ -90,3 +90,74 @@ main p {
 ::-webkit-scrollbar-thumb:hover {
     background-color: #0671af;
 }
+
+
+header {
+    background: url('imgs/AGN.png') no-repeat bottom center/cover #33333333;
+    border-bottom: #1206af 3px solid;
+}
+
+.icontainer div p {
+    background-image: linear-gradient(135deg, #3396ff, #ffffff, #2992d8, #ffffff, #33ffd3);
+}
+
+.icontainer {
+    background-color: #003a785b;
+    border-top: #6998fd 2px solid;
+}
+
+main {
+    background: linear-gradient(180deg, #5299e4, #1853ac);
+    border-top: #3586f0 3px solid;
+    border-bottom: #3586f0 3px solid;
+    box-shadow: 0 0 5px rgba(0, 0, 0, 0.2);
+}
+
+footer {
+    background: url('imgs/fundo.png') no-repeat center/cover;
+    border-top: #1206af 3px solid;
+}
+
+footer p {
+    color: #fff;
+    text-shadow: 0 0 10px rgba(0, 0, 0, 0.2);
+    background-color: #001c5086;
+    box-shadow: 0 0 5px rgba(0, 0, 0, 0.2);
+    border: #5fb7ff 2px solid;
+}
+
+body {
+    background-color: #3396ff;
+}
+
+header nav {
+    background-color: #001d5a;
+    box-shadow: 0 0 5px rgba(0, 0, 0, 0.2);
+    border: #6998fd 2px solid;
+}
+
+header nav ul li:hover {
+    background-color: #4579be;
+}
+
+header nav ul li {
+    box-shadow: 0 0 5px rgba(0, 0, 0, 0.2);
+    border-left: #6998fd 2px solid;
+    border-right: #6998fd 2px solid;
+    background-color: #003a78;
+    text-shadow: 0 0 5px rgba(0, 0, 0, 0.8);
+}
+
+.logo div {
+    border: #6998fd 3px solid;
+    background: url('imgs/logo.png') no-repeat center/cover;
+}
+
+.logo div:hover {
+    border-color: #0671af;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.8);
+}
+
+.redes a button {
+    border: #013094 2px solid;
+}
