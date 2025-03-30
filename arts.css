@@ -11,7 +11,7 @@
     justify-content: center;
     align-items: center;
     flex-direction: column;
-    background-color: rgba(131, 74, 0, 0.562);
+    background-color: rgba(153, 87, 0, 0.781);
     padding: 1rem;
     border-radius: 25px;
     box-shadow: 0 0 5px rgba(0, 0, 0, 0.2);
@@ -124,9 +124,9 @@ header {
 }
 
 main {
-    background: linear-gradient(180deg, #fc8b0b, #352000);
+    background: linear-gradient(180deg, #ca6c00, #352000);
     border-top: #f0c435 3px solid;
-    border-bottom: #f0c435 3px solid;
+    border-bottom: #533200 3px solid;
     box-shadow: 0 0 5px rgba(0, 0, 0, 0.2);
 }
 
@@ -179,6 +179,82 @@ header nav ul li:hover {
     border: #c58101 2px solid;
 }
 
+.pagination {
+    display: flex;
+    justify-content: left;
+    max-width: 300px;
+    overflow: hidden;
+    align-items: center;
+    gap: 10px;
+}
+
+.page-btn {
+    padding: 10px;
+    border: 1px solid #fdff81;
+    background-color: #ffd16f;
+    cursor: pointer;
+    border-radius: 5px;
+    transition: background-color 0.3s;
+    color: rgb(0, 0, 0);
+    font-family: Arial, sans-serif;
+    font-size: 1rem;
+    text-shadow: 0 0 5px rgba(0, 0, 0, 0.2);
+    box-shadow: 0 0 5px rgba(0, 0, 0, 0.2);
+}
+
+.page-btn:hover {
+    background-color: #ffbb00;
+    color: white;
+    border-color: #ffd16f;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.8);
+    transition: background-color 0.3s;
+    box-shadow: 0 0 5px rgba(0, 0, 0, 0.2);
+}
+
+.page-btn.active {
+    background-color: #cf8700;
+    color: white;
+    border-color: #ffbb00;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.8);
+    transition: background-color 0.3s;
+    box-shadow: 0 0 5px rgba(0, 0, 0, 0.2);
+}
+
+.first-page-btn,
+.last-page-btn {
+    padding: 10px;
+    border: 1px solid #fdff81;
+    background-color: #ffd16f;
+    cursor: pointer;
+    border-radius: 5px;
+    transition: background-color 0.3s;
+    color: rgb(0, 0, 0);
+    font-family: Arial, sans-serif;
+    font-size: 1rem;
+    text-shadow: 0 0 5px rgba(0, 0, 0, 0.2);
+    box-shadow: 0 0 5px rgba(0, 0, 0, 0.2);
+}
+
+.first-page-btn:hover,
+.last-page-btn:hover {
+    background-color: #ffbb00;
+    color: white;
+    border-color: #ffd16f;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.8);
+}
+
+.pagct {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 10px;
+    margin-top: 20px;
+}
+
+.disabled {
+    pointer-events: none;
+    opacity: 0.5;
+}
 
 @media screen and (max-width: 768px) {
     .arte div {
@@ -192,5 +268,9 @@ header nav ul li:hover {
 
     .descricao {
         width: 100%;
+    }
+
+    .pagct {
+        max-width: 90%;
     }
 }
