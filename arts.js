@@ -68,7 +68,7 @@ function renderPage(page) {
 function renderPagination() {
     pagct.innerHTML = '';
 
-    const totalPages = Math.ceil(artes.imagens.length / itemsPerPage) + 10;
+    const totalPages = Math.ceil(artes.imagens.length / itemsPerPage);
 
     const firstPageButton = createButton('<<', ['page-btn', 'first-page-btn'], () => {
         currentPage = 1;
