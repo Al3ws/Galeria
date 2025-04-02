@@ -50,7 +50,7 @@ function renderPage(page) {
         div.classList.add('arte');
         div.innerHTML = `
             <div class='artect'>
-                <img src="${imagem}" alt="Imagem">
+                <img src="${imagem}" alt="${artes.titulos[globalIndex]}" class="clickable-image">
                 <div class="descricao">
                     <h2>${artes.titulos[globalIndex]}</h2>
                     <p>${artes.descricoes[globalIndex]}</p>
@@ -62,7 +62,42 @@ function renderPage(page) {
         artessec.appendChild(div);
     });
 
+    addImageClickEvents();
     renderPagination();
+}
+
+function addImageClickEvents() {
+    const images = document.querySelectorAll('.clickable-image');
+    const modal = document.getElementById('imageModal');
+    const modalImg = document.getElementById('modalImage');
+    const captionText = document.getElementById('caption');
+    const closeModal = document.querySelector('.close');
+
+    images.forEach((img) => {
+        img.addEventListener('click', () => {
+            modal.style.display = 'flex';
+            modalImg.src = img.src;
+            captionText.innerHTML = img.alt;
+
+            setTimeout(() => modal.classList.add('show'), 10);
+        });
+    });
+
+    closeModal.addEventListener('click', () => {
+        modal.classList.remove('show');
+        setTimeout(() => {
+            modal.style.display = 'flex';
+        }, 300);
+    });
+
+    window.addEventListener('click', (event) => {
+        if (event.target === modal) {
+            modal.classList.remove('show');
+            setTimeout(() => {
+                modal.style.display = 'none';
+            }, 300);
+        }
+    });
 }
 
 function renderPagination() {
