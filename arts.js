@@ -86,7 +86,7 @@ function addImageClickEvents() {
     closeModal.addEventListener('click', () => {
         modal.classList.remove('show');
         setTimeout(() => {
-            modal.style.display = 'flex';
+            modal.style.display = 'none';
         }, 300);
     });
 
