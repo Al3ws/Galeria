@@ -58,6 +58,13 @@ main p {
     transition: 0.5s;
     box-shadow: 0 0 5px rgba(0, 0, 0, 0.8);
 }
+
+#sabres {
+    border: none;
+    box-shadow: none;
+    margin: 0;
+}
+
 .iniciosec img:hover {
     box-shadow: 0 0 10px rgba(0, 0, 0, 0.8);
     border: #1206af 3px solid;
