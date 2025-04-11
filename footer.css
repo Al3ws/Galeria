@@ -8,6 +8,7 @@ footer {
     justify-content: center;
     align-items: center;
     flex-direction: column;
+    animation: aparecendo 3s ease-in-out;
     overflow: hidden;
 }
 
