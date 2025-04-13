@@ -7,18 +7,23 @@ window.onbeforeunload = () => {
 
 const projetos = {
     imagens: [
-        'imgs/srp.png'
+        'imgs/srp.png',
+        'imgs/RG.png'
     ],
     titulos: [
-        'Sistema de Registro Pedagógico'
+        'Sistema de Registro Pedagógico',
+        'Registrador Geral'
     ],
     descricoes: [
-        'Esse é um projeto de um sistema de registro pedagógico para escolas, com o intuito de facilitar o registro de informações e ocorrências dos alunos.'
+        'Esse é um projeto de um sistema de registro pedagógico para escolas, sendo um site seguro com o intuito de facilitar o registro de informações e ocorrências dos alunos.',
+        'Um projeto de um sistema de registrador geral sendo um software desktop, onde o usuário pode registrar informações de forma segura e mais ampla, sendo possível registrar, apagar e pesquisar registros, além de criar e deletar tabelas.'
     ],
-    sobre: [
-        'Projeto de um sistema de registro pedagógico para escolas'
+    disponibilidade: [
+        'Contate-me para a disponibilização',
+        'Disponível apenas no Patreon'
     ],
     software: [
+        'imgs/php.png',
         'imgs/php.png'
     ]
 };
@@ -49,7 +54,7 @@ function renderPage(page) {
                 <div class="descricao">
                     <h2>${projetos.titulos[globalIndex]}</h2>
                     <p>${projetos.descricoes[globalIndex]}</p>
-                    <p>(<i>${projetos.sobre[globalIndex]}</i>)</p>
+                    <p>(<i>${projetos.disponibilidade[globalIndex]}</i>)</p>
                 </div>
             </div>
             <img src="${projetos.software[globalIndex]}" alt="Software">
