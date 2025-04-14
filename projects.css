@@ -25,6 +25,7 @@
     height: 100%;
     display: flex;
     justify-content: center;
+    align-items: center;
     border-bottom: #000ecf7a 2px solid;
 }
 
