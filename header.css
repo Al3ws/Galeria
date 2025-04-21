@@ -107,7 +107,7 @@ header {
 }
 
 .patreon:active {
-    background-color: #f97e3f;
+    background-color: #ce5c23;
 }
 .patreon:hover {
     background-color: #f97e3f;
@@ -119,13 +119,13 @@ header {
     background-color: #35f0c1;
 }
 .linkedin:active {
-    background-color: #005f8b;
+    background-color: #01405e;
 }
 .linkedin:hover {
     background-color: #005f8b;
 }
 .kickstarter:active {
-    background-color: #1e9e5e;
+    background-color: #14683e;
 }
 .kickstarter:hover {
     background-color: #1e9e5e;
@@ -189,7 +189,7 @@ header nav ul {
     justify-content: center;
     align-items: center;
     height: 100%;
-    width: 60%;
+    width: 65%;
 }
 
 header nav ul li {
