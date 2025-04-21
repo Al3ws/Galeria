@@ -5,6 +5,12 @@ window.onbeforeunload = () => {
     scrollToTop();
 };
 
+const disponivel = {
+    patreon: 'Disponível apenas no Patreon',
+    contato: 'Contate-me para a disponibilização',
+    indisponivel: 'Indisponível no momento'
+}
+
 const projetos = {
     imagens: [
         'imgs/srp.png',
@@ -19,10 +25,10 @@ const projetos = {
         'Um projeto de um sistema de registrador geral sendo um software desktop, onde o usuário pode registrar informações de forma segura e mais ampla, sendo possível registrar, apagar e pesquisar registros, além de criar e deletar tabelas.'
     ],
     disponibilidade: [
-        'Contate-me para a disponibilização',
-        'Disponível apenas no Patreon'
+        disponivel.contato,
+        disponivel.patreon
     ],
-    software: [
+    sistema: [
         'imgs/php.png',
         'imgs/php.png'
     ]
@@ -31,7 +37,7 @@ const projetos = {
 const itemsPerPage = 3;
 let currentPage = 1;
 
-function createButton(text, classes, onClick) {
+const createButton = (text, classes, onClick) => {
     const button = document.createElement('button');
     button.textContent = text;
     button.classList.add(...classes);
@@ -39,7 +45,7 @@ function createButton(text, classes, onClick) {
     return button;
 }
 
-function renderPage(page) {
+const renderPage = (page) => {
     projetossec.innerHTML = '';
     const startIndex = (page - 1) * itemsPerPage;
     const endIndex = startIndex + itemsPerPage;
@@ -57,7 +63,7 @@ function renderPage(page) {
                     <p>(<i>${projetos.disponibilidade[globalIndex]}</i>)</p>
                 </div>
             </div>
-            <img src="${projetos.software[globalIndex]}" alt="Software">
+            <img src="${projetos.sistema[globalIndex]}" alt="Sistema">
         `;
         projetossec.appendChild(div);
     });
@@ -66,7 +72,7 @@ function renderPage(page) {
     renderPagination();
 }
 
-function addImageClickEvents() {
+const addImageClickEvents = () => {
     const images = document.querySelectorAll('.clickable-image');
     const modal = document.getElementById('imageModal');
     const modalImg = document.getElementById('modalImage');
@@ -100,7 +106,7 @@ function addImageClickEvents() {
     });
 }
 
-function renderPagination() {
+const renderPagination = () => {
     pagct.innerHTML = '';
 
     const totalPages = Math.ceil(projetos.imagens.length / itemsPerPage);
@@ -149,12 +155,12 @@ function renderPagination() {
     pagct.appendChild(lastPageButton);
 }
 
-function disable(button) {
+const disable = (button) => {
     button.disabled = true;
     button.classList.add('disabled');
 }
 
-function scrollToTop() {
+const scrollToTop = () => {
     setTimeout(() => {
         window.scrollTo({ top: 0, behavior: 'smooth' });
     }, 0);

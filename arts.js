@@ -31,7 +31,7 @@ const artes = {
 const itemsPerPage = 3;
 let currentPage = 1;
 
-function createButton(text, classes, onClick) {
+const createButton = (text, classes, onClick) => {
     const button = document.createElement('button');
     button.textContent = text;
     button.classList.add(...classes);
@@ -39,7 +39,7 @@ function createButton(text, classes, onClick) {
     return button;
 }
 
-function renderPage(page) {
+const renderPage = (page) => {
     artessec.innerHTML = '';
     const startIndex = (page - 1) * itemsPerPage;
     const endIndex = startIndex + itemsPerPage;
@@ -66,7 +66,7 @@ function renderPage(page) {
     renderPagination();
 }
 
-function addImageClickEvents() {
+const addImageClickEvents = () => {
     const images = document.querySelectorAll('.clickable-image');
     const modal = document.getElementById('imageModal');
     const modalImg = document.getElementById('modalImage');
@@ -100,7 +100,7 @@ function addImageClickEvents() {
     });
 }
 
-function renderPagination() {
+const renderPagination = () => {
     pagct.innerHTML = '';
 
     const totalPages = Math.ceil(artes.imagens.length / itemsPerPage);
@@ -149,12 +149,12 @@ function renderPagination() {
     pagct.appendChild(lastPageButton);
 }
 
-function disable(button) {
+const disable = (button) => {
     button.disabled = true;
     button.classList.add('disabled');
 }
 
-function scrollToTop() {
+const scrollToTop = () => {
     setTimeout(() => {
         window.scrollTo({ top: 0, behavior: 'smooth' });
     }, 0);
