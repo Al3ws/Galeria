@@ -18,12 +18,13 @@ class Projetos {
 const carregarProjetos = async () => {
     const response = await fetch('projects.json');
     const data = await response.json();
+
     return new Projetos(
-        data.imagem,
-        data.titulo,
-        data.descricao,
-        data.disponibilidade,
-        data.sistema
+        data.projetos.map(projeto => projeto.imagem),
+        data.projetos.map(projeto => projeto.titulo),
+        data.projetos.map(projeto => projeto.descricao),
+        data.projetos.map(projeto => projeto.disponibilidade),
+        data.projetos.map(projeto => projeto.sistema)
     );
 }
 
@@ -43,7 +44,7 @@ const renderPage = (page) => {
     projetossec.innerHTML = '';
     const startIndex = (page - 1) * itemsPerPage;
     const endIndex = startIndex + itemsPerPage;
-
+    
     projetos.imagens.slice(startIndex, endIndex).forEach((imagem, index) => {
         const globalIndex = startIndex + index;
         const div = document.createElement('div');
@@ -104,7 +105,7 @@ const addImageClickEvents = () => {
 const renderPagination = () => {
     pagct.innerHTML = '';
 
-    const totalPages = Math.ceil(projetos.imagens.length / itemsPerPage);
+    const totalPages = Math.ceil(projetossec.children.length / itemsPerPage);
 
     const firstPageButton = createButton('<<', ['page-btn', 'first-page-btn'], () => {
         currentPage = 1;
