@@ -16,16 +16,28 @@ class Projetos {
 }
 
 const carregarProjetos = async () => {
-    const response = await fetch('projects.json');
-    const data = await response.json();
+    try{
+        const response = await fetch('projects.json');
+        if (!response.ok) {
+            throw new Error('Network response was not ok');
+        }
+        
+        const data = await response.json();
+        if (!data.projetos || !Array.isArray(data.projetos)) {
+            throw new Error('Invalid data format');
+        }
 
-    return new Projetos(
-        data.projetos.map(projeto => projeto.imagem),
-        data.projetos.map(projeto => projeto.titulo),
-        data.projetos.map(projeto => projeto.descricao),
-        data.projetos.map(projeto => projeto.disponibilidade),
-        data.projetos.map(projeto => projeto.sistema)
-    );
+        return new Projetos(
+            data.projetos.map(projeto => projeto.imagem),
+            data.projetos.map(projeto => projeto.titulo),
+            data.projetos.map(projeto => projeto.descricao),
+            data.projetos.map(projeto => projeto.disponibilidade),
+            data.projetos.map(projeto => projeto.sistema)
+        );
+    }
+    catch (error) {
+        errorHandler(error);
+    }
 }
 
 const itemsPerPage = 3;
@@ -40,32 +52,37 @@ const createButton = (text, classes, onClick) => {
 }
 
 const renderPage = (page) => {
-    carregarProjetos().then(projetos => {
-    projetossec.innerHTML = '';
-    const startIndex = (page - 1) * itemsPerPage;
-    const endIndex = startIndex + itemsPerPage;
-    
-    projetos.imagens.slice(startIndex, endIndex).forEach((imagem, index) => {
-        const globalIndex = startIndex + index;
-        const div = document.createElement('div');
-        div.classList.add('projeto');
-        div.innerHTML = `
-            <div>
-                <img src="${imagem}" alt="${projetos.titulos[globalIndex]}" class="clickable-image">
-                <div class="descricao">
-                    <h2>${projetos.titulos[globalIndex]}</h2>
-                    <p>${projetos.descricoes[globalIndex]}</p>
-                    <p>(<i>${projetos.disponibilidade[globalIndex]}</i>)</p>
+    try {
+        carregarProjetos().then(projetos => {
+        projetossec.innerHTML = '';
+        const startIndex = (page - 1) * itemsPerPage;
+        const endIndex = startIndex + itemsPerPage;
+        
+        projetos.imagens.slice(startIndex, endIndex).forEach((imagem, index) => {
+            const globalIndex = startIndex + index;
+            const div = document.createElement('div');
+            div.classList.add('projeto');
+            div.innerHTML = `
+                <div>
+                    <img src="${imagem}" alt="${projetos.titulos[globalIndex]}" class="clickable-image">
+                    <div class="descricao">
+                        <h2>${projetos.titulos[globalIndex]}</h2>
+                        <p>${projetos.descricoes[globalIndex]}</p>
+                        <p>(<i>${projetos.disponibilidade[globalIndex]}</i>)</p>
+                    </div>
                 </div>
-            </div>
-            <img src="${projetos.sistema[globalIndex]}" alt="Sistema">
-        `;
-        projetossec.appendChild(div);
-    });
+                <img src="${projetos.sistema[globalIndex]}" alt="Sistema">
+            `;
+            projetossec.appendChild(div);
+        });
 
-    addImageClickEvents();
-    renderPagination();
-});
+        addImageClickEvents();
+        renderPagination();
+        });
+    }    
+    catch (error) {
+        errorHandler(error);
+    }
 }
 
 const addImageClickEvents = () => {
@@ -103,52 +120,57 @@ const addImageClickEvents = () => {
 }
 
 const renderPagination = () => {
-    pagct.innerHTML = '';
+    try {
+        pagct.innerHTML = '';
 
-    const totalPages = Math.ceil(projetossec.children.length / itemsPerPage);
+        const totalPages = Math.ceil(projetossec.children.length / itemsPerPage);
 
-    const firstPageButton = createButton('<<', ['page-btn', 'first-page-btn'], () => {
-        currentPage = 1;
-        renderPage(currentPage);
-        scrollToTop();
-    });
-    if (currentPage === 1) {
-        disable(firstPageButton);
-    }
-    pagct.appendChild(firstPageButton);
-
-    const pagination = document.createElement('div');
-    pagination.classList.add('pagination');
-    pagct.appendChild(pagination);
-
-    for (let i = 1; i <= totalPages; i++) {
-        const button = createButton(i, ['page-btn'], () => {
-            scrollToTop();
-            currentPage = i;
+        const firstPageButton = createButton('<<', ['page-btn', 'first-page-btn'], () => {
+            currentPage = 1;
             renderPage(currentPage);
-        });
-
-        const distance = Math.abs(i - currentPage);
-        button.style.opacity = Math.max(1 - distance * 0.2, 0.1);
-
-        if (i === currentPage) {
-            button.classList.add('active');
-            setTimeout(() => button.scrollIntoView({ behavior: 'smooth', block: 'nearest', inline: 'center' }), 0);
             scrollToTop();
+        });
+        if (currentPage === 1) {
+            disable(firstPageButton);
+        }
+        pagct.appendChild(firstPageButton);
+
+        const pagination = document.createElement('div');
+        pagination.classList.add('pagination');
+        pagct.appendChild(pagination);
+
+        for (let i = 1; i <= totalPages; i++) {
+            const button = createButton(i, ['page-btn'], () => {
+                scrollToTop();
+                currentPage = i;
+                renderPage(currentPage);
+            });
+
+            const distance = Math.abs(i - currentPage);
+            button.style.opacity = Math.max(1 - distance * 0.2, 0.1);
+
+            if (i === currentPage) {
+                button.classList.add('active');
+                setTimeout(() => button.scrollIntoView({ behavior: 'smooth', block: 'nearest', inline: 'center' }), 0);
+                scrollToTop();
+            }
+
+            pagination.appendChild(button);
         }
 
-        pagination.appendChild(button);
+        const lastPageButton = createButton('>>', ['page-btn', 'last-page-btn'], () => {
+            currentPage = totalPages;
+            renderPage(currentPage);
+            scrollToTop();
+        });
+        if (currentPage === totalPages) {
+            disable(lastPageButton);
+        }
+        pagct.appendChild(lastPageButton);
     }
-
-    const lastPageButton = createButton('>>', ['page-btn', 'last-page-btn'], () => {
-        currentPage = totalPages;
-        renderPage(currentPage);
-        scrollToTop();
-    });
-    if (currentPage === totalPages) {
-        disable(lastPageButton);
+    catch (error) {
+        errorHandler(error);
     }
-    pagct.appendChild(lastPageButton);
 }
 
 const disable = (button) => {
@@ -160,6 +182,11 @@ const scrollToTop = () => {
     setTimeout(() => {
         window.scrollTo({ top: 0, behavior: 'smooth' });
     }, 0);
+}
+
+const errorHandler = (error) => {
+    console.error('Error loading projects:', error);
+    projetossec.innerHTML = '<p>Error loading projects. Please try again later.</p>';
 }
 
 renderPage(currentPage);
