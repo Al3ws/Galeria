@@ -106,26 +106,14 @@ header {
     user-select: none;
 }
 
-.patreon:active {
-    background-color: #ce5c23;
-}
 .patreon:hover {
-    background-color: #f97e3f;
-}
-.github:active {
-    background-color: #178991;
+    background-color: #d36931;
 }
 .github:hover {
-    background-color: #35f0c1;
-}
-.linkedin:active {
-    background-color: #01405e;
+    background-color: #3ec4d6;
 }
 .linkedin:hover {
     background-color: #005f8b;
-}
-.kickstarter:active {
-    background-color: #14683e;
 }
 .kickstarter:hover {
     background-color: #1e9e5e;

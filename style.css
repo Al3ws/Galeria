@@ -57,6 +57,7 @@ main p {
     margin: 1rem;
     transition: 0.5s;
     box-shadow: 0 0 5px rgba(0, 0, 0, 0.8);
+    user-select: none;
 }
 
 #sabres {

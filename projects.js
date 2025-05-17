@@ -5,34 +5,27 @@ window.onbeforeunload = () => {
     scrollToTop();
 };
 
-const disponivel = {
-    patreon: 'Disponível apenas no Patreon',
-    contato: 'Contate-me para a disponibilização',
-    indisponivel: 'Indisponível no momento'
+class Projetos {
+    constructor(imagens, titulos, descricoes, disponibilidade, sistema) {
+        this.imagens = imagens;
+        this.titulos = titulos;
+        this.descricoes = descricoes;
+        this.disponibilidade = disponibilidade;
+        this.sistema = sistema;
+    }
 }
 
-const projetos = {
-    imagens: [
-        'imgs/srp.png',
-        'imgs/RG.png'
-    ],
-    titulos: [
-        'Sistema de Registro Pedagógico',
-        'Registrador Geral'
-    ],
-    descricoes: [
-        'Esse é um projeto de um sistema de registro pedagógico para escolas, sendo um site seguro com o intuito de facilitar o registro de informações e ocorrências dos alunos.',
-        'Um projeto de um sistema de registrador geral sendo um software desktop, onde o usuário pode registrar informações de forma segura e mais ampla, sendo possível registrar, apagar e pesquisar registros, além de criar e deletar tabelas.'
-    ],
-    disponibilidade: [
-        disponivel.contato,
-        disponivel.patreon
-    ],
-    sistema: [
-        'imgs/php.png',
-        'imgs/php.png'
-    ]
-};
+const carregarProjetos = async () => {
+    const response = await fetch('projects.json');
+    const data = await response.json();
+    return new Projetos(
+        data.imagem,
+        data.titulo,
+        data.descricao,
+        data.disponibilidade,
+        data.sistema
+    );
+}
 
 const itemsPerPage = 3;
 let currentPage = 1;
@@ -46,6 +39,7 @@ const createButton = (text, classes, onClick) => {
 }
 
 const renderPage = (page) => {
+    carregarProjetos().then(projetos => {
     projetossec.innerHTML = '';
     const startIndex = (page - 1) * itemsPerPage;
     const endIndex = startIndex + itemsPerPage;
@@ -70,6 +64,7 @@ const renderPage = (page) => {
 
     addImageClickEvents();
     renderPagination();
+});
 }
 
 const addImageClickEvents = () => {
