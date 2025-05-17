@@ -11,3 +11,43 @@ main {
     animation: aparecendo 2s ease-in-out;
     overflow: hidden;
 }
+
+.error {
+    color: #ff0000;
+    text-shadow: 0 0 3px rgba(0, 0, 0, 0.8);
+    font-size: 1.2rem;
+    text-align: center;
+    margin: 1rem;
+    padding: 1rem;
+    background-color: rgba(121, 0, 0, 0.8);
+    border-radius: 10px;
+    border: #ff0000 2px solid;
+    box-shadow: 0 0 5px rgba(0, 0, 0, 0.8);
+}
+
+.loader {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    width: 100%;
+    height: 100%;
+}
+
+.loader-spinner {
+    width: 50px;
+    height: 50px;
+    border-radius: 50%;
+    border: 8px solid #f3f3f3;
+    border-top: 8px solid #000cb1;
+    animation: spin 1s ease-in-out infinite;
+    box-shadow: 0 0 5px rgba(0, 0, 0, 0.8);
+}
+
+@keyframes spin {
+    0% {
+        transform: rotate(0deg);
+    }
+    100% {
+        transform: rotate(360deg);
+    }
+}

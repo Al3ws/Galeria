@@ -1,44 +1,25 @@
 const projetossec = document.querySelector('.projetossec');
 const pagct = document.querySelector('.pagct');
 
-window.onbeforeunload = () => {
-    scrollToTop();
-};
+window.onbeforeunload = () => scrollToTop();
 
 class Projetos {
-    constructor(imagens, titulos, descricoes, disponibilidade, sistema) {
-        this.imagens = imagens;
-        this.titulos = titulos;
-        this.descricoes = descricoes;
-        this.disponibilidade = disponibilidade;
-        this.sistema = sistema;
+    constructor(projetos) {
+        this.projetos = projetos;
     }
 }
 
 const carregarProjetos = async () => {
-    try{
-        const response = await fetch('projects.json');
-        if (!response.ok) {
-            throw new Error('Network response was not ok');
-        }
-        
+    try {
+        const response = await fetch('data.json');
+        if (!response.ok) throw new Error('Network response was not ok');
         const data = await response.json();
-        if (!data.projetos || !Array.isArray(data.projetos)) {
-            throw new Error('Invalid data format');
-        }
-
-        return new Projetos(
-            data.projetos.map(projeto => projeto.imagem),
-            data.projetos.map(projeto => projeto.titulo),
-            data.projetos.map(projeto => projeto.descricao),
-            data.projetos.map(projeto => projeto.disponibilidade),
-            data.projetos.map(projeto => projeto.sistema)
-        );
-    }
-    catch (error) {
+        if (!Array.isArray(data.projetos)) throw new Error('Invalid data format');
+        return new Projetos(data.projetos);
+    } catch (error) {
         errorHandler(error);
     }
-}
+};
 
 const itemsPerPage = 3;
 let currentPage = 1;
@@ -47,43 +28,39 @@ const createButton = (text, classes, onClick) => {
     const button = document.createElement('button');
     button.textContent = text;
     button.classList.add(...classes);
-    button.addEventListener('click', onClick);
+    button.onclick = onClick;
     return button;
-}
+};
 
 const renderPage = (page) => {
-    try {
-        carregarProjetos().then(projetos => {
-        projetossec.innerHTML = '';
-        const startIndex = (page - 1) * itemsPerPage;
-        const endIndex = startIndex + itemsPerPage;
-        
-        projetos.imagens.slice(startIndex, endIndex).forEach((imagem, index) => {
-            const globalIndex = startIndex + index;
+    projetossec.innerHTML = '';
+    showLoading();
+    carregarProjetos().then(projetosObj => {
+        if (!projetosObj) return;
+        const { projetos } = projetosObj;
+        const start = (page - 1) * itemsPerPage;
+        const end = start + itemsPerPage;
+        projetos.slice(start, end).forEach(projeto => {
             const div = document.createElement('div');
             div.classList.add('projeto');
             div.innerHTML = `
                 <div>
-                    <img src="${imagem}" alt="${projetos.titulos[globalIndex]}" class="clickable-image">
+                    <img src="${projeto.imagem}" alt="${projeto.titulo}" class="clickable-image">
                     <div class="descricao">
-                        <h2>${projetos.titulos[globalIndex]}</h2>
-                        <p>${projetos.descricoes[globalIndex]}</p>
-                        <p>(<i>${projetos.disponibilidade[globalIndex]}</i>)</p>
+                        <h2>${projeto.titulo}</h2>
+                        <p>${projeto.descricao}</p>
+                        <p>(<i>${projeto.disponibilidade}</i>)</p>
                     </div>
                 </div>
-                <img src="${projetos.sistema[globalIndex]}" alt="Sistema">
+                <img src="${projeto.sistema}" alt="Sistema">
             `;
             projetossec.appendChild(div);
         });
-
         addImageClickEvents();
-        renderPagination();
-        });
-    }    
-    catch (error) {
-        errorHandler(error);
-    }
-}
+        renderPagination(projetos.length);
+    }).catch(errorHandler)
+    .finally(hideLoading);
+};
 
 const addImageClickEvents = () => {
     const images = document.querySelectorAll('.clickable-image');
@@ -92,101 +69,100 @@ const addImageClickEvents = () => {
     const captionText = document.getElementById('caption');
     const closeModal = document.querySelector('.close');
 
-    images.forEach((img) => {
-        img.addEventListener('click', () => {
+    images.forEach(img => {
+        img.onclick = () => {
+            if (!modal || !modalImg || !captionText) return;
             modal.style.display = 'flex';
             modalImg.src = img.src;
             captionText.innerHTML = img.alt;
-
             setTimeout(() => modal.classList.add('show'), 10);
-        });
+        };
     });
 
-    closeModal.addEventListener('click', () => {
-        modal.classList.remove('show');
-        setTimeout(() => {
-            modal.style.display = 'none';
-        }, 300);
-    });
-
-    window.addEventListener('click', (event) => {
-        if (event.target === modal) {
+    if (closeModal && modal) {
+        closeModal.onclick = () => {
             modal.classList.remove('show');
-            setTimeout(() => {
-                modal.style.display = 'none';
-            }, 300);
-        }
-    });
-}
+            setTimeout(() => { modal.style.display = 'none'; }, 300);
+        };
+    }
 
-const renderPagination = () => {
-    try {
-        pagct.innerHTML = '';
-
-        const totalPages = Math.ceil(projetossec.children.length / itemsPerPage);
-
-        const firstPageButton = createButton('<<', ['page-btn', 'first-page-btn'], () => {
-            currentPage = 1;
-            renderPage(currentPage);
-            scrollToTop();
-        });
-        if (currentPage === 1) {
-            disable(firstPageButton);
-        }
-        pagct.appendChild(firstPageButton);
-
-        const pagination = document.createElement('div');
-        pagination.classList.add('pagination');
-        pagct.appendChild(pagination);
-
-        for (let i = 1; i <= totalPages; i++) {
-            const button = createButton(i, ['page-btn'], () => {
-                scrollToTop();
-                currentPage = i;
-                renderPage(currentPage);
-            });
-
-            const distance = Math.abs(i - currentPage);
-            button.style.opacity = Math.max(1 - distance * 0.2, 0.1);
-
-            if (i === currentPage) {
-                button.classList.add('active');
-                setTimeout(() => button.scrollIntoView({ behavior: 'smooth', block: 'nearest', inline: 'center' }), 0);
-                scrollToTop();
+    if (modal) {
+        window.onclick = (event) => {
+            if (event.target === modal) {
+                modal.classList.remove('show');
+                setTimeout(() => { modal.style.display = 'none'; }, 300);
             }
+        };
+    }
+};
 
-            pagination.appendChild(button);
-        }
+const renderPagination = (totalItems) => {
+    pagct.innerHTML = '';
+    const totalPages = Math.ceil(totalItems / itemsPerPage);
 
-        const lastPageButton = createButton('>>', ['page-btn', 'last-page-btn'], () => {
-            currentPage = totalPages;
+    const firstPageButton = createButton('<<', ['page-btn', 'first-page-btn'], () => {
+        currentPage = 1;
+        renderPage(currentPage);
+        scrollToTop();
+    });
+    if (currentPage === 1) disable(firstPageButton);
+    pagct.appendChild(firstPageButton);
+
+    const pagination = document.createElement('div');
+    pagination.classList.add('pagination');
+    pagct.appendChild(pagination);
+
+    for (let i = 1; i <= totalPages; i++) {
+        const button = createButton(i, ['page-btn'], () => {
+            currentPage = i;
             renderPage(currentPage);
             scrollToTop();
         });
-        if (currentPage === totalPages) {
-            disable(lastPageButton);
+        button.style.opacity = Math.max(1 - Math.abs(i - currentPage) * 0.2, 0.1);
+        if (i === currentPage) {
+            button.classList.add('active');
+            setTimeout(() => button.scrollIntoView({ behavior: 'smooth', block: 'nearest', inline: 'center' }), 0);
+            scrollToTop();
         }
-        pagct.appendChild(lastPageButton);
+        pagination.appendChild(button);
     }
-    catch (error) {
-        errorHandler(error);
-    }
-}
+
+    const lastPageButton = createButton('>>', ['page-btn', 'last-page-btn'], () => {
+        currentPage = totalPages;
+        renderPage(currentPage);
+        scrollToTop();
+    });
+    if (currentPage === totalPages) disable(lastPageButton);
+    pagct.appendChild(lastPageButton);
+};
 
 const disable = (button) => {
     button.disabled = true;
     button.classList.add('disabled');
-}
+};
 
 const scrollToTop = () => {
-    setTimeout(() => {
-        window.scrollTo({ top: 0, behavior: 'smooth' });
-    }, 0);
-}
+    setTimeout(() => window.scrollTo({ top: 0, behavior: 'smooth' }), 0);
+};
+
+const showLoading = () => {
+    const loadingDiv = document.createElement('div');
+    loadingDiv.classList.add('loader');
+    loadingDiv.innerHTML = `<div class="loader-spinner"></div>`;
+    projetossec.appendChild(loadingDiv);
+};
+const hideLoading = () => {
+    const loadingDiv = document.querySelector('.loader');
+    if (loadingDiv) loadingDiv.remove();
+};
 
 const errorHandler = (error) => {
     console.error('Error loading projects:', error);
-    projetossec.innerHTML = '<p>Error loading projects. Please try again later.</p>';
-}
+    projetossec.innerHTML = '';
+    const errorDiv = document.createElement('div');
+    errorDiv.classList.add('error');
+    errorDiv.textContent = 'Erro ao carregar os projetos. Tente novamente mais tarde.';
+    projetossec.appendChild(errorDiv);
+};
 
 renderPage(currentPage);

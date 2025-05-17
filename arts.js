@@ -1,31 +1,24 @@
 const artessec = document.querySelector('.artessec');
 const pagct = document.querySelector('.pagct');
 
-window.onbeforeunload = () => {
-    scrollToTop();
-};
+window.onbeforeunload = () => scrollToTop();
 
-const artes = {
-    imagens: [
-        'imgs/AGN.png',
-        'imgs/fundo.png'
-    ],
-    titulos: [
-        'Aventura nas Geleiras Norlândesas',
-        'O Naufrágio Esquecido'
-    ],
-    descricoes: [
-        'Essa é uma arte sobre uma aventura ao norte de uma terra predominantemente gelada, em busca de continuar sua jornada.',
-        'Essa é uma arte sobre um naufrágio em um local desconhecido, onde o tempo parece ter parado.'
-    ],
-    sobre: [
-        'Arte conceitual de um futuro projeto de jogo',
-        'Arte conceitual de um futuro projeto de jogo'
-    ],
-    software: [
-        'imgs/blender.png',
-        'imgs/blender.png'
-    ]
+class Artes {
+    constructor(artes) {
+        this.artes = artes;
+    }
+}
+
+const carregarArtes = async () => {
+    try {
+        const response = await fetch('data.json');
+        if (!response.ok) throw new Error('Network response was not ok');
+        const data = await response.json();
+        if (!Array.isArray(data.artes)) throw new Error('Invalid data format');
+        return new Artes(data.artes);
+    } catch (error) {
+        errorHandler(error);
+    }
 };
 
 const itemsPerPage = 3;
@@ -35,36 +28,39 @@ const createButton = (text, classes, onClick) => {
     const button = document.createElement('button');
     button.textContent = text;
     button.classList.add(...classes);
-    button.addEventListener('click', onClick);
+    button.onclick = onClick;
     return button;
-}
+};
 
 const renderPage = (page) => {
     artessec.innerHTML = '';
-    const startIndex = (page - 1) * itemsPerPage;
-    const endIndex = startIndex + itemsPerPage;
-
-    artes.imagens.slice(startIndex, endIndex).forEach((imagem, index) => {
-        const globalIndex = startIndex + index;
-        const div = document.createElement('div');
-        div.classList.add('arte');
-        div.innerHTML = `
-            <div class='artect'>
-                <img src="${imagem}" alt="${artes.titulos[globalIndex]}" class="clickable-image">
-                <div class="descricao">
-                    <h2>${artes.titulos[globalIndex]}</h2>
-                    <p>${artes.descricoes[globalIndex]}</p>
-                    <p>(<i>${artes.sobre[globalIndex]}</i>)</p>
+    showLoading();
+    carregarArtes().then(artesObj => {
+        if (!artesObj) return;
+        const { artes } = artesObj;
+        const start = (page - 1) * itemsPerPage;
+        const end = start + itemsPerPage;
+        artes.slice(start, end).forEach(arte => {
+            const div = document.createElement('div');
+            div.classList.add('arte');
+            div.innerHTML = `
+                <div class='artect'>
+                    <img src="${arte.imagem}" alt="${arte.titulo}" class="clickable-image">
+                    <div class="descricao">
+                        <h2>${arte.titulo}</h2>
+                        <p>${arte.descricao}</p>
+                        <p>(<i>${arte.sobre}</i>)</p>
+                    </div>
                 </div>
-            </div>
-            <img src="${artes.software[globalIndex]}" alt="Software">
-        `;
-        artessec.appendChild(div);
-    });
-
-    addImageClickEvents();
-    renderPagination();
-}
+                <img src="${arte.software}" alt="Software">
+            `;
+            artessec.appendChild(div);
+        });
+        addImageClickEvents();
+        renderPagination(artes.length);
+    }).catch(errorHandler)
+    .finally(hideLoading);
+};
 
 const addImageClickEvents = () => {
     const images = document.querySelectorAll('.clickable-image');
@@ -73,46 +69,43 @@ const addImageClickEvents = () => {
     const captionText = document.getElementById('caption');
     const closeModal = document.querySelector('.close');
 
-    images.forEach((img) => {
-        img.addEventListener('click', () => {
+    images.forEach(img => {
+        img.onclick = () => {
+            if (!modal || !modalImg || !captionText) return;
             modal.style.display = 'flex';
             modalImg.src = img.src;
             captionText.innerHTML = img.alt;
-
             setTimeout(() => modal.classList.add('show'), 10);
-        });
+        };
     });
 
-    closeModal.addEventListener('click', () => {
-        modal.classList.remove('show');
-        setTimeout(() => {
-            modal.style.display = 'none';
-        }, 300);
-    });
-
-    window.addEventListener('click', (event) => {
-        if (event.target === modal) {
+    if (closeModal && modal) {
+        closeModal.onclick = () => {
             modal.classList.remove('show');
-            setTimeout(() => {
-                modal.style.display = 'none';
-            }, 300);
-        }
-    });
-}
+            setTimeout(() => { modal.style.display = 'none'; }, 300);
+        };
+    }
 
-const renderPagination = () => {
+    if (modal) {
+        window.onclick = (event) => {
+            if (event.target === modal) {
+                modal.classList.remove('show');
+                setTimeout(() => { modal.style.display = 'none'; }, 300);
+            }
+        };
+    }
+};
+
+const renderPagination = (totalItems) => {
     pagct.innerHTML = '';
-
-    const totalPages = Math.ceil(artes.imagens.length / itemsPerPage);
+    const totalPages = Math.ceil(totalItems / itemsPerPage);
 
     const firstPageButton = createButton('<<', ['page-btn', 'first-page-btn'], () => {
         currentPage = 1;
         renderPage(currentPage);
         scrollToTop();
     });
-    if (currentPage === 1) {
-        disable(firstPageButton);
-    }
+    if (currentPage === 1) disable(firstPageButton);
     pagct.appendChild(firstPageButton);
 
     const pagination = document.createElement('div');
@@ -121,20 +114,16 @@ const renderPagination = () => {
 
     for (let i = 1; i <= totalPages; i++) {
         const button = createButton(i, ['page-btn'], () => {
-            scrollToTop();
             currentPage = i;
             renderPage(currentPage);
+            scrollToTop();
         });
-
-        const distance = Math.abs(i - currentPage);
-        button.style.opacity = Math.max(1 - distance * 0.2, 0.1);
-
+        button.style.opacity = Math.max(1 - Math.abs(i - currentPage) * 0.2, 0.1);
         if (i === currentPage) {
             button.classList.add('active');
             setTimeout(() => button.scrollIntoView({ behavior: 'smooth', block: 'nearest', inline: 'center' }), 0);
             scrollToTop();
         }
-
         pagination.appendChild(button);
     }
 
@@ -143,21 +132,37 @@ const renderPagination = () => {
         renderPage(currentPage);
         scrollToTop();
     });
-    if (currentPage === totalPages) {
-        disable(lastPageButton);
-    }
+    if (currentPage === totalPages) disable(lastPageButton);
     pagct.appendChild(lastPageButton);
-}
+};
 
 const disable = (button) => {
     button.disabled = true;
     button.classList.add('disabled');
-}
+};
 
 const scrollToTop = () => {
-    setTimeout(() => {
-        window.scrollTo({ top: 0, behavior: 'smooth' });
-    }, 0);
-}
+    setTimeout(() => window.scrollTo({ top: 0, behavior: 'smooth' }), 0);
+};
+
+const showLoading = () => {
+    const loadingDiv = document.createElement('div');
+    loadingDiv.classList.add('loader');
+    loadingDiv.innerHTML = `<div class="loader-spinner"></div>`;
+    artessec.appendChild(loadingDiv);
+};
+const hideLoading = () => {
+    const loadingDiv = document.querySelector('.loader');
+    if (loadingDiv) loadingDiv.remove();
+};
+
+const errorHandler = (error) => {
+    console.error('Error loading arts:', error);
+    artessec.innerHTML = '';
+    const errorDiv = document.createElement('div');
+    errorDiv.classList.add('error');
+    errorDiv.textContent = 'Erro ao carregar as artes. Tente novamente mais tarde.';
+    artessec.appendChild(errorDiv);
+};
 
 renderPage(currentPage);
