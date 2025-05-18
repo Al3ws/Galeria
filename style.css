@@ -102,7 +102,7 @@ main p {
 
 
 header {
-    background: url('imgs/AGN.png') no-repeat bottom center/cover #33333333;
+    background: url('imgs/arts/AGN.png') no-repeat bottom center/cover #33333333;
     border-bottom: #1206af 3px solid;
 }
 
@@ -123,7 +123,7 @@ main {
 }
 
 footer {
-    background: url('imgs/fundo.png') no-repeat center/cover;
+    background: url('imgs/arts/fundo.png') no-repeat center/cover;
     border-top: #1206af 3px solid;
 }
 
