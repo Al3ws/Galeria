@@ -1,21 +1,21 @@
-const projetossec = document.querySelector('.projetossec');
-const pagct = document.querySelector('.pagct');
+const projectsSection = document.querySelector('.projectsSection');
+const paginationContainer = document.querySelector('.paginationContainer');
 
 window.onbeforeunload = () => scrollToTop();
 
-class Projetos {
-    constructor(projetos) {
-        this.projetos = projetos;
+class Projects {
+    constructor(projects) {
+        this.projects = projects;
     }
 }
 
-const carregarProjetos = async () => {
+const loadProjects = async () => {
     try {
         const response = await fetch('data.json');
         if (!response.ok) throw new Error('Network response was not ok');
         const data = await response.json();
-        if (!Array.isArray(data.projetos)) throw new Error('Invalid data format');
-        return new Projetos(data.projetos);
+        if (!Array.isArray(data.projects)) throw new Error('Invalid data format');
+        return new Projects(data.projects);
     } catch (error) {
         errorHandler(error);
     }
@@ -33,31 +33,31 @@ const createButton = (text, classes, onClick) => {
 };
 
 const renderPage = (page) => {
-    projetossec.innerHTML = '';
+    projectsSection.innerHTML = '';
     showLoading();
-    carregarProjetos().then(projetosObj => {
-        if (!projetosObj) return;
-        const { projetos } = projetosObj;
+    loadProjects().then(projectsObj => {
+        if (!projectsObj) return;
+        const { projects } = projectsObj;
         const start = (page - 1) * itemsPerPage;
         const end = start + itemsPerPage;
-        projetos.slice(start, end).forEach(projeto => {
+        projects.slice(start, end).forEach(project => {
             const div = document.createElement('div');
-            div.classList.add('projeto');
+            div.classList.add('project');
             div.innerHTML = `
-                <div>
-                    <img src="${projeto.imagem}" alt="${projeto.titulo}" class="clickable-image">
-                    <div class="descricao">
-                        <h2>${projeto.titulo}</h2>
-                        <p>${projeto.descricao}</p>
-                        <p>(<i>${projeto.disponibilidade}</i>)</p>
+                <div class='projectContainer'>
+                    <img src="${project.image}" alt="${project.title}" class="clickable-image">
+                    <div class="description">
+                        <h2>${project.title}</h2>
+                        <p>${project.description}</p>
+                        <p>(<i>${project.availability}</i>)</p>
                     </div>
                 </div>
-                <img src="${projeto.sistema}" alt="Sistema">
+                <img src="${project.sistem}" alt="Sistema">
             `;
-            projetossec.appendChild(div);
+            projectsSection.appendChild(div);
         });
         addImageClickEvents();
-        renderPagination(projetos.length);
+        renderPagination(projects.length);
     }).catch(errorHandler)
     .finally(hideLoading);
 };
@@ -97,7 +97,7 @@ const addImageClickEvents = () => {
 };
 
 const renderPagination = (totalItems) => {
-    pagct.innerHTML = '';
+    paginationContainer.innerHTML = '';
     const totalPages = Math.ceil(totalItems / itemsPerPage);
 
     const firstPageButton = createButton('<<', ['page-btn', 'first-page-btn'], () => {
@@ -106,11 +106,11 @@ const renderPagination = (totalItems) => {
         scrollToTop();
     });
     if (currentPage === 1) disable(firstPageButton);
-    pagct.appendChild(firstPageButton);
+    paginationContainer.appendChild(firstPageButton);
 
     const pagination = document.createElement('div');
     pagination.classList.add('pagination');
-    pagct.appendChild(pagination);
+    paginationContainer.appendChild(pagination);
 
     for (let i = 1; i <= totalPages; i++) {
         const button = createButton(i, ['page-btn'], () => {
@@ -133,7 +133,7 @@ const renderPagination = (totalItems) => {
         scrollToTop();
     });
     if (currentPage === totalPages) disable(lastPageButton);
-    pagct.appendChild(lastPageButton);
+    paginationContainer.appendChild(lastPageButton);
 };
 
 const disable = (button) => {
@@ -149,7 +149,7 @@ const showLoading = () => {
     const loadingDiv = document.createElement('div');
     loadingDiv.classList.add('loader');
     loadingDiv.innerHTML = `<div class="loader-spinner"></div>`;
-    projetossec.appendChild(loadingDiv);
+    projectsSection.appendChild(loadingDiv);
 };
 const hideLoading = () => {
     const loadingDiv = document.querySelector('.loader');
@@ -158,11 +158,11 @@ const hideLoading = () => {
 
 const errorHandler = (error) => {
     console.error('Error loading projects:', error);
-    projetossec.innerHTML = '';
+    projectsSection.innerHTML = '';
     const errorDiv = document.createElement('div');
     errorDiv.classList.add('error');
     errorDiv.textContent = 'Erro ao carregar os projetos. Tente novamente mais tarde.';
-    projetossec.appendChild(errorDiv);
+    projectsSection.appendChild(errorDiv);
 };
 
 renderPage(currentPage);

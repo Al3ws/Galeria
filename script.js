@@ -1,6 +1,6 @@
-const ano = document.querySelector('#ano');
+const year = document.querySelector('#year');
 
-ano.textContent = new Date().getFullYear();
+year.textContent = new Date().getFullYear();
 
 window.onbeforeunload = () => {
     window.scrollTo(0, 0);

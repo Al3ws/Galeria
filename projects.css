@@ -1,12 +1,12 @@
-#projetos {
+#projects {
     background-color: #00282b;
 }
 
-.projetossec {
+.projectsSection {
     width: 90%;
 }
 
-.projeto {
+.project {
     margin: 1rem;
     display: flex;
     justify-content: center;
@@ -20,7 +20,7 @@
     overflow: hidden;
 }
 
-.projeto div {
+.project div {
     width: 100%;
     height: 100%;
     display: flex;
@@ -29,7 +29,7 @@
     border-bottom: #000ecf7a 2px solid;
 }
 
-.projeto img {
+.project img {
     height: 5rem;
     width: 5rem;
     border: #002b86 2px solid;
@@ -41,7 +41,7 @@
     user-select: none;
 }
 
-.projeto div img {
+.project div img {
     width: 50%;
     height: auto;
     border: #002a9e 2px solid;
@@ -52,12 +52,12 @@
     cursor: pointer;
 }
 
-.projeto div img:hover {
+.project div img:hover {
     box-shadow: 0 0 10px rgba(0, 0, 0, 0.8), 0 0 5px rgba(255, 255, 255, 0.5);
     border-color: #000ba5;
 }
 
-.descricao {
+.description {
     display: flex;
     align-items: center;
     flex-direction: column;
@@ -74,7 +74,7 @@
     margin: 1rem;
 }
 
-.descricao h2 {
+.description h2 {
     font-size: 1.5rem;
     letter-spacing: 1px;
     margin: 0.5rem;
@@ -83,7 +83,7 @@
     color: #a8d8ff;
 }
 
-.descricao p {
+.description p {
     font-size: 1rem;
     letter-spacing: 1px;
     margin: 0.5rem;
@@ -120,15 +120,15 @@
 
 
 header {
-    background: url('imgs/neve.png') no-repeat bottom center/cover #33333333;
+    background: url('imgs/backgrounds/snow.png') no-repeat bottom center/cover #33333333;
     border-bottom: #1206af 3px solid;
 }
 
-.icontainer div p {
+.imageContainer div p {
     background-image: linear-gradient(135deg, #339cff, #ffffff, #29bed8, #ffffff, #33fff5);
 }
 
-.icontainer {
+.imageContainer {
     background-color: rgba(0, 78, 78, 0.357);
     border-top: #068ce6 2px solid;
 }
@@ -141,7 +141,7 @@ main {
 }
 
 footer {
-    background: url('imgs/gelo.png') no-repeat center/cover;
+    background: url('imgs/backgrounds/ice.png') no-repeat center/cover;
     border-top: #067faf 3px solid;
 }
 
@@ -177,7 +177,7 @@ header nav ul li:hover {
 
 .logo div {
     border: #69d3fd 3px solid;
-    background: url('imgs/logo3.png') no-repeat center/cover;
+    background: url('imgs/logos/projects.png') no-repeat center/cover;
 }
 
 .logo div:hover {
@@ -254,7 +254,7 @@ header nav ul li:hover {
     box-shadow: 0 0 10px rgba(0, 0, 0, 0.8);
 }
 
-.pagct {
+.paginationContainer {
     display: flex;
     justify-content: center;
     align-items: center;
@@ -325,27 +325,27 @@ header nav ul li:hover {
 }
 
 @media screen and (max-width: 768px) {
-    .projeto div {
+    .project div {
         flex-direction: column;
         align-items: center;
     }
 
-    .projeto div img {
+    .project div img {
         width: 90%;
         height: auto;
     }
 
-    .descricao {
+    .description {
         width: 100%;
     }
 
-    .pagct {
+    .paginationContainer {
         max-width: 90%;
     }
-    .projetossec {
+    .projectsSection {
         width: 100%;
     }
-    .projeto {
+    .project {
         width: 100%;
         margin: 0.5rem 0;
         padding: 0rem;

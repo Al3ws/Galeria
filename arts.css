@@ -1,11 +1,11 @@
-#artes {
+#arts {
     background-color: #461c00;
 }
-.artessec {
+.artsSection {
     width: 90%;
 }
 
-.arte {
+.art {
     margin: 1rem;
     display: flex;
     justify-content: center;
@@ -19,7 +19,7 @@
     overflow: hidden;
 }
 
-.arte div {
+.art div {
     width: 100%;
     height: 100%;
     display: flex;
@@ -28,7 +28,7 @@
     overflow: hidden;
 }
 
-.artect {
+.artContainer {
     width: 100%;
     height: 100%;
     display: flex;
@@ -36,7 +36,7 @@
     border-bottom: #ffe75f7a 2px solid;
 }
 
-.arte img {
+.art img {
     height: 5rem;
     width: 5rem;
     border: #ffac5f 2px solid;
@@ -48,7 +48,7 @@
     user-select: none;
 }
 
-.arte div img {
+.art div img {
     width: 50%;
     height: fit-content;
     border: #ffda5f 2px solid;
@@ -59,12 +59,12 @@
     user-select: none;
 }
 
-.arte div img:hover {
+.art div img:hover {
     box-shadow: 0 0 10px rgba(0, 0, 0, 0.8), 0 0 5px rgba(255, 255, 255, 0.5);
     border-color: #ffb45f;
 }
 
-.descricao {
+.description {
     display: flex;
     align-items: center;
     flex-direction: column;
@@ -81,7 +81,7 @@
     margin: 1rem;
 }
 
-.descricao h2 {
+.description h2 {
     font-size: 1.5rem;
     letter-spacing: 1px;
     margin: 0.5rem;
@@ -90,7 +90,7 @@
     color: #ffd375;
 }
 
-.descricao p {
+.description p {
     font-size: 1rem;
     letter-spacing: 1px;
     margin: 0.5rem;
@@ -127,15 +127,15 @@
 
 
 header {
-    background: url('imgs/outono.png') no-repeat bottom center/cover #33333333;
+    background: url('imgs/backgrounds/autumn.png') no-repeat bottom center/cover #33333333;
     border-bottom: #af5806 3px solid;
 }
 
-.icontainer div p {
+.imageContainer div p {
     background-image: linear-gradient(135deg, #ff7433, #ffffff, #d87829, #ffffff, #ff3333);
 }
 
-.icontainer {
+.imageContainer {
     background-color: #7852005b;
     border-top: #ffa41d 2px solid;
 }
@@ -148,7 +148,7 @@ main {
 }
 
 footer {
-    background: url('imgs/tesouro.png') no-repeat center/cover;
+    background: url('imgs/backgrounds/treasure.png') no-repeat center/cover;
     border-top: #af5206 3px solid;
 }
 
@@ -184,7 +184,7 @@ header nav ul li:hover {
 
 .logo div {
     border: #fdc969 3px solid;
-    background: url('imgs/logo2.png') no-repeat center/cover;
+    background: url('imgs/logos/arts.png') no-repeat center/cover;
 }
 
 .logo div:hover {
@@ -192,7 +192,7 @@ header nav ul li:hover {
     box-shadow: 0 0 10px rgba(0, 0, 0, 0.8);
 }
 
-.redes a button {
+.sites a button {
     border: #c58101 2px solid;
 }
 
@@ -261,7 +261,7 @@ header nav ul li:hover {
     box-shadow: 0 0 10px rgba(0, 0, 0, 0.8);
 }
 
-.pagct {
+.paginationContainer {
     display: flex;
     justify-content: center;
     align-items: center;
@@ -332,26 +332,26 @@ header nav ul li:hover {
 }
 
 @media screen and (max-width: 768px) {
-    .arte div {
+    .art div {
         flex-direction: column;
         align-items: center;
     }
 
-    .arte div img {
+    .art div img {
         width: 90%;
     }
 
-    .descricao {
+    .description {
         width: 100%;
     }
 
-    .pagct {
+    .paginationContainer {
         max-width: 90%;
     }
-    .artessec {
+    .artsSection {
         width: 100%;
     }
-    .arte {
+    .art {
         width: 100%;
         margin: 0.5rem 0;
         padding: 0rem;

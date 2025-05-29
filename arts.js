@@ -1,21 +1,21 @@
-const artessec = document.querySelector('.artessec');
-const pagct = document.querySelector('.pagct');
+const artsSection = document.querySelector('.artsSection');
+const paginationContainer = document.querySelector('.paginationContainer');
 
 window.onbeforeunload = () => scrollToTop();
 
-class Artes {
-    constructor(artes) {
-        this.artes = artes;
+class Arts {
+    constructor(arts) {
+        this.arts = arts;
     }
 }
 
-const carregarArtes = async () => {
+const loadArts = async () => {
     try {
         const response = await fetch('data.json');
         if (!response.ok) throw new Error('Network response was not ok');
         const data = await response.json();
-        if (!Array.isArray(data.artes)) throw new Error('Invalid data format');
-        return new Artes(data.artes);
+        if (!Array.isArray(data.arts)) throw new Error('Invalid data format');
+        return new Arts(data.arts);
     } catch (error) {
         errorHandler(error);
     }
@@ -33,31 +33,31 @@ const createButton = (text, classes, onClick) => {
 };
 
 const renderPage = (page) => {
-    artessec.innerHTML = '';
+    artsSection.innerHTML = '';
     showLoading();
-    carregarArtes().then(artesObj => {
-        if (!artesObj) return;
-        const { artes } = artesObj;
+    loadArts().then(artsObj => {
+        if (!artsObj) return;
+        const { arts } = artsObj;
         const start = (page - 1) * itemsPerPage;
         const end = start + itemsPerPage;
-        artes.slice(start, end).forEach(arte => {
+        arts.slice(start, end).forEach(art => {
             const div = document.createElement('div');
-            div.classList.add('arte');
+            div.classList.add('art');
             div.innerHTML = `
-                <div class='artect'>
-                    <img src="${arte.imagem}" alt="${arte.titulo}" class="clickable-image">
-                    <div class="descricao">
-                        <h2>${arte.titulo}</h2>
-                        <p>${arte.descricao}</p>
-                        <p>(<i>${arte.sobre}</i>)</p>
+                <div class='artContainer'>
+                    <img src="${art.image}" alt="${art.title}" class="clickable-image">
+                    <div class="description">
+                        <h2>${art.title}</h2>
+                        <p>${art.description}</p>
+                        <p>(<i>${art.about}</i>)</p>
                     </div>
                 </div>
-                <img src="${arte.software}" alt="Software">
+                <img src="${art.software}" alt="Software">
             `;
-            artessec.appendChild(div);
+            artsSection.appendChild(div);
         });
         addImageClickEvents();
-        renderPagination(artes.length);
+        renderPagination(arts.length);
     }).catch(errorHandler)
     .finally(hideLoading);
 };
@@ -97,7 +97,7 @@ const addImageClickEvents = () => {
 };
 
 const renderPagination = (totalItems) => {
-    pagct.innerHTML = '';
+    paginationContainer.innerHTML = '';
     const totalPages = Math.ceil(totalItems / itemsPerPage);
 
     const firstPageButton = createButton('<<', ['page-btn', 'first-page-btn'], () => {
@@ -106,11 +106,11 @@ const renderPagination = (totalItems) => {
         scrollToTop();
     });
     if (currentPage === 1) disable(firstPageButton);
-    pagct.appendChild(firstPageButton);
+    paginationContainer.appendChild(firstPageButton);
 
     const pagination = document.createElement('div');
     pagination.classList.add('pagination');
-    pagct.appendChild(pagination);
+    paginationContainer.appendChild(pagination);
 
     for (let i = 1; i <= totalPages; i++) {
         const button = createButton(i, ['page-btn'], () => {
@@ -133,7 +133,7 @@ const renderPagination = (totalItems) => {
         scrollToTop();
     });
     if (currentPage === totalPages) disable(lastPageButton);
-    pagct.appendChild(lastPageButton);
+    paginationContainer.appendChild(lastPageButton);
 };
 
 const disable = (button) => {
@@ -149,7 +149,7 @@ const showLoading = () => {
     const loadingDiv = document.createElement('div');
     loadingDiv.classList.add('loader');
     loadingDiv.innerHTML = `<div class="loader-spinner"></div>`;
-    artessec.appendChild(loadingDiv);
+    artsSection.appendChild(loadingDiv);
 };
 const hideLoading = () => {
     const loadingDiv = document.querySelector('.loader');
@@ -158,11 +158,11 @@ const hideLoading = () => {
 
 const errorHandler = (error) => {
     console.error('Error loading arts:', error);
-    artessec.innerHTML = '';
+    artsSection.innerHTML = '';
     const errorDiv = document.createElement('div');
     errorDiv.classList.add('error');
     errorDiv.textContent = 'Erro ao carregar as artes. Tente novamente mais tarde.';
-    artessec.appendChild(errorDiv);
+    artsSection.appendChild(errorDiv);
 };
 
 renderPage(currentPage);
