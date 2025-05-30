@@ -1,2 +1,2 @@
 # Gallery
-A Gallery about my released works and projects over time.
+A Gallery about my works and projects over time.
