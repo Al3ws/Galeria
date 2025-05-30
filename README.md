@@ -1,2 +1,2 @@
 # Gallery
-Uma galeria sobre meus trabalhos e projetos realizados ao longo do tempo.
+A Gallery about my released works and projects over time;
