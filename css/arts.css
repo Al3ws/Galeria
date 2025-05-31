@@ -321,6 +321,7 @@ header nav ul li:hover {
     font-size: 40px;
     font-weight: bold;
     cursor: pointer;
+    user-select: none;
 }
 
 #caption {
