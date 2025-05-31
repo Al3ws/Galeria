@@ -2,7 +2,17 @@
     background-color: #461c00;
 }
 .artsSection {
-    width: 90%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+    background-color: rgba(70, 28, 0, 0.5);
+    padding: 2rem;
+    border-radius: 1rem;
+    border: #ffb45f 3px solid;
+    box-shadow: 0 0 5px rgba(0, 0, 0, 0.8);
+    max-width: 90%;
+    overflow: hidden;
 }
 
 .art {
