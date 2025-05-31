@@ -1,0 +1,31 @@
+footer {
+    color: #fff;
+    text-align: center;
+    width: 100%;
+    min-height: 20rem;
+    height: fit-content;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+    animation: fadeIn 3s ease-in-out;
+    overflow: hidden;
+}
+
+footer p {
+    font-size: 1.2rem;
+    margin: 0;
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    letter-spacing: 1px;
+    margin: 1rem;
+    padding: 0.5rem;
+    border-radius: 5px;
+    overflow: hidden;
+}
+
+@media screen and (max-width: 768px) {
+    footer p {
+        font-size: 1rem;
+        margin: 0.5rem 0;
+    }
+}

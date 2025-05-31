@@ -1,0 +1,40 @@
+{
+    "arts": [
+        {
+            "id": 1,
+            "image": "imgs/arts/AGN.png",
+            "title": "Aventura nas Geleiras Norlândesas",
+            "description": "Essa é uma arte sobre uma aventura ao norte de uma terra predominantemente gelada, em busca de continuar sua jornada.",
+            "about": "Arte conceitual de um futuro projeto de jogo",
+            "software": "imgs/softwares/blender.png"
+        }
+        ,
+        {
+            "id": 2,
+            "image": "imgs/arts/shipWreck.png",
+            "title": "O Naufrágio Esquecido",
+            "description": "Essa é uma arte sobre um naufrágio em um local desconhecido, onde o tempo parece ter parado.",
+            "about": "Arte conceitual de um futuro projeto de jogo",
+            "software": "imgs/softwares/blender.png"
+        }
+    ],
+    "projects": [
+        {
+            "id": 1,
+            "image": "imgs/projects/SRP.png",
+            "title": "Sistema de Registro Pedagógico",
+            "description": "Esse é um projeto de um sistema de registro pedagógico para escolas, sendo um site seguro com o intuito de facilitar o registro de informações e ocorrências dos alunos.",
+            "availability": "Contate-me para a disponibilização",
+            "sistem": "imgs/sistems/php.png"
+        }
+        ,
+        {
+            "id": 2,
+            "image": "imgs/projects/RG.png",
+            "title": "Registrador Geral",
+            "description": "Um projeto de um sistema de registrador geral sendo um software desktop, onde o usuário pode registrar informações de forma segura e mais ampla, sendo possível registrar, apagar e pesquisar registros, além de criar e deletar tabelas.",
+            "availability": "Contate-me para a disponibilização",
+            "sistem": "imgs/sistems/php.png"
+        }
+    ]
+}
