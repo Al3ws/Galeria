@@ -1,2 +1,2 @@
 # Gallery
-A Gallery about my works and projects over time.
+Gallery of my work and projects carried out over time.
